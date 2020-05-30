@@ -1,11 +1,11 @@
 import React from 'react';
 
-function App() {
+import { Widget } from './components/Widget'
+
+export const App = () => {
   return (
-    <div className="App">
-      app
-    </div>
+    <>
+      <Widget/>
+    </>
   );
 }
-
-export default App;
