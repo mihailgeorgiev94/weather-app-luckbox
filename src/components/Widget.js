@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchWeather, setWeatherUnits } from '../actions/weatherActions'
+import { fetchCurrentWeather, fetchFutureWeather, setWeatherUnits } from '../actions/weatherActions'
 import { WEATHER_UNITS } from '../consts';
 
 import sunIcon from './sunIcon.png';
@@ -22,7 +22,8 @@ export const Widget = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchWeather(city))
+    dispatch(fetchCurrentWeather(city))
+    dispatch(fetchFutureWeather(city))
   }, [city, dispatch, weatherUnits])
 
   const handleWeatherUnits = useCallback(() => {
