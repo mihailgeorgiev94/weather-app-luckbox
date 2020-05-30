@@ -32,6 +32,7 @@ export const Widget = () => {
       : dispatch(setWeatherUnits(WEATHER_UNITS.METRIC))
   }, [dispatch, weatherUnits])
 
+  // TODO: Add current location
   return (
     <div className="widget">
 
