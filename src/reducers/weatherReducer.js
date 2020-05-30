@@ -5,6 +5,10 @@ const initialState = {
   weatherType: null,
   temp: null,
   city: null,
+  wind: null,
+  pressure: null,
+  clouds: null,
+  humidity: null,
   weatherUnits: WEATHER_UNITS.METRIC,
   hourlyWeather: [],
   futureWeather: []

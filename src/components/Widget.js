@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentWeather, fetchFutureWeather, setWeatherUnits } from '../actions/weatherActions'
 import { WEATHER_UNITS } from '../consts';
 
-import sunIcon from './sunIcon.png';
-import rainIcon from './rainIcon.png';
+import sunIcon from '../assets/sunIcon.png';
+import rainIcon from '../assets/rainIcon.png';
 
 // You guys probably meant clear instead of cloudy here
 const WEATHER_TYPES = {
