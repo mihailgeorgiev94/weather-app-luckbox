@@ -17,7 +17,7 @@ export const WeatherDetails = () => {
 
   return (
     <div className="weather-details">
-      <span>details ▼</span>
+      <span>details ∨</span>
 
       <div className="details-wrapper">
         {/* this should wrap in 2 line on mobile */}
@@ -54,7 +54,7 @@ export const WeatherDetails = () => {
       <span>24 - hour forecast</span>
 
       <LineChart
-        width={500}
+        width={200}
         height={300}
         data={chartData}
         margin={{
@@ -66,7 +66,7 @@ export const WeatherDetails = () => {
       </LineChart>
 
       {/* I think it should be 4 days instead of 'next day' */}
-      <span>Next 4 days ▼</span>
+      <span>Next 4 days ∨</span>
     </div>
   );
 }
