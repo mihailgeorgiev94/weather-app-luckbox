@@ -1,3 +1,65 @@
 .widget {
   display: flex;
+  flex-direction: column;
+
+  .city {
+    display: flex;
+    align-items: center;
+
+    &__input {
+      width: 150px;
+      border: none;
+      background: transparent;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 18px;
+      color: white;
+    }
+
+    &__glass {
+      width: 12px;
+      height: 14px;
+      margin-left: 5px;
+    }
+  }
+
+  .temp {
+    display: flex;
+
+    &__val {
+      font-size: 98px;
+      font-weight: bold;
+    }
+
+    &__weather {
+      position: relative;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 50%;
+      right: 3%;
+      width: 27px;
+      height: 27px;
+    }
+
+    &__units {
+      font-size: 48px;
+      line-height: 75px;
+      font-weight: bold;
+    }
+  }
+
+  .weather-type {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .details {
+    font-size: 12px;
+  }
+}
+
+.city__input:focus + .city__glass {
+  visibility: hidden;
 }

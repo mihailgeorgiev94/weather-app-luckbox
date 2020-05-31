@@ -20,7 +20,7 @@ export const weatherReducer = (state = initialState, action) => {
     return {
       ...state,
       weatherType: action.payload.weather[0].main,
-      temp: action.payload.main.temp,
+      temp: parseInt(action.payload.main.temp),
       wind: action.payload.wind.speed,
       pressure: action.payload.main.pressure,
       clouds: action.payload.clouds.all,
