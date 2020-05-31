@@ -2,7 +2,39 @@
 
 .app {
   background: @background-color;
-  padding: 70px 30px 0 30px;
-  width: calc(100% - 60px;);
-  height: calc(100vh - 70px;);
+  width: 100%;
+  height: 100%;
+}
+
+.widget-background {
+  position: fixed;
+  top: 0;
+  background: @background-color;
+  z-index: 1;
+  width: 100%;
+  height: 35%;
+}
+
+.widget-wrapper {
+  position: fixed;
+  top: 70px;
+  left: 30px;
+  z-index: 2;
+}
+
+.details-wrapper {
+  margin-top: 200px;
+}
+
+.content {
+  padding: 70px 30px;
+}
+
+.parallax {
+  min-height: 100vh;
+
+  background-attachment: fixed;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: auto;
 }

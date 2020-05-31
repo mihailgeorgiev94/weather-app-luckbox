@@ -1,8 +1,12 @@
+.cell {
+  width: 100px;
+  display: inline-block;
+  text-align: center;
+}
+
 .future-weather {
   &>span {
-    width: 120px;
-    display: inline-block;
-    text-align: center;
+    .cell();
     margin-bottom: 10px;
     font-weight: bold;
   }
@@ -11,16 +15,12 @@
     margin-bottom: 10px;
 
     &>span {
-      width: 120px;
-      display: inline-block;
+      .cell();
       font-weight: bold;
-      text-align: center;
     }
 
     &>div {
-      width: 120px;
-      display: inline-block;
-      text-align: center;
+      .cell();
     }
   }
 
