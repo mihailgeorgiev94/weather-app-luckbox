@@ -1,5 +1,5 @@
 import React from 'react';
-import {  LineChart, Line, XAxis, Tooltip } from 'recharts';
+import {  LineChart, Line, XAxis } from 'recharts';
 import { useSelector } from 'react-redux';
 
 import { WEATHER_TYPES } from '../consts';
@@ -73,7 +73,7 @@ export const WeatherDetails = () => {
           }}
         >
           <XAxis tick={<AxisTick data={hourlyWeather}/>} stroke="#FFFFFF" tickSize={0}/>
-          <Line type="monotone" dataKey="pv" stroke="#FFFFFF" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="pv" stroke="#FFFFFF" dot={<LineDot/>} />
         </LineChart>
       </div>
 
@@ -81,6 +81,16 @@ export const WeatherDetails = () => {
     </div>
   );
 };
+
+export const LineDot = ({cx, cy, stroke, payload, value}) => {
+
+  return (
+    <g transform={`translate(${cx},${cy})`}>
+      <circle cx={0} cy={0} r={5} stroke="#FFFFFF" fill="#FFFFFF"/>
+      <text className="chart__label" stroke="#FFFFFF" x={-10} y={-16}>{parseInt(value)}</text>
+    </g>
+)};
+
 
 export const AxisTick = ({data, x, y, stroke, payload}) => (
   <g transform={`translate(${x},${y})`}>
