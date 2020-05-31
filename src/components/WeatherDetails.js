@@ -1,72 +1,96 @@
 import React from 'react';
-import {  LineChart, Line, XAxis } from 'recharts';
+import {  LineChart, Line, XAxis, Tooltip } from 'recharts';
 import { useSelector } from 'react-redux';
+
+import { WEATHER_TYPES } from '../consts';
+
+import './weather-details.less';
 
 import windIcon from '../assets/windIcon.png';
 import pressureIcon from '../assets/pressureIcon.png';
-import cloudsIcon from '../assets/sunIcon.png';
+import sunIcon from '../assets/sunIcon.png';
+import rainIcon from '../assets/rainIcon.png';
 import humidityIcon from '../assets/humidityIcon.png';
 
 export const WeatherDetails = () => {
-  const { clouds } = useSelector(state => state.weather )
-  const { humidity } = useSelector(state => state.weather )
-  const { pressure } = useSelector(state => state.weather )
-  const { wind } = useSelector(state => state.weather )
-  const { hourlyWeather } = useSelector(state => state.weather )
-  const chartData = hourlyWeather.map(e => ({ name: e.dt_txt, pv: e.main.temp }))
+  const { clouds } = useSelector(state => state.weather);
+  const { humidity } = useSelector(state => state.weather);
+  const { pressure } = useSelector(state => state.weather);
+  const { wind } = useSelector(state => state.weather);
+  const { hourlyWeather } = useSelector(state => state.weather);
+  const chartData = hourlyWeather.map(e => ({ pv: e.main.temp }));
 
   return (
     <div className="weather-details">
       <span>details ∨</span>
 
-      <div className="details-wrapper">
-        {/* this should wrap in 2 line on mobile */}
-        <div className="wind">
-          <span>{wind}</span>
-          <img
-            src={windIcon}
-            alt='Cannot load asset'
-          />
+      <div className="table">
+
+        <div className="table__row">
+          <div className="wind">
+            <span className="table__label">{`${wind} m/s`}</span>
+            <img
+              src={windIcon}
+              alt='Cannot load asset'
+            />
+          </div>
+          <div className="clouds">
+            <span className="table__label">{`${clouds} %`}</span>
+            <img
+              src={sunIcon}
+              alt='Cannot load asset'
+            />
+          </div>
         </div>
-        <div className="temp">
-          <span>{pressure}</span>
-          <img
-            src={pressureIcon}
-            alt='Cannot load asset'
-          />
-        </div>
-        <div className="clouds">
-          <span>{clouds}</span>
-          <img
-            src={cloudsIcon}
-            alt='Cannot load asset'
-          />
-        </div>
-        <div className="humidity">
-          <span>{humidity}</span>
-          <img
-            src={humidityIcon}
-            alt='Cannot load asset'
-          />
+
+        <div className="table__row">
+          <div className="temp">
+            <span className="table__label">{`${pressure} hPa`}</span>
+            <img
+              src={pressureIcon}
+              alt='Cannot load asset'
+            />
+          </div>
+          <div className="humidity">
+            <span className="table__label">{`${humidity} %`}</span>
+            <img
+              src={humidityIcon}
+              alt='Cannot load asset'
+            />
+          </div>
         </div>
       </div>
 
       <span>24 - hour forecast</span>
 
-      <LineChart
-        width={200}
-        height={300}
-        data={chartData}
-        margin={{
-          top: 5, right: 30, left: 20, bottom: 5,
-        }}
-      >
-        <XAxis dataKey="name" />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-      </LineChart>
+      <div className="chart-wrapper">
+        <LineChart
+          width={500}
+          height={300}
+          data={chartData}
+          margin={{
+            top: 5, right: 30, left: 20, bottom: 5,
+          }}
+        >
+          <XAxis tick={<AxisTick data={hourlyWeather}/>} stroke="#FFFFFF" tickSize={0}/>
+          <Line type="monotone" dataKey="pv" stroke="#FFFFFF" activeDot={{ r: 8 }} />
+        </LineChart>
+      </div>
 
-      {/* I think it should be 4 days instead of 'next day' */}
       <span>Next 4 days ∨</span>
     </div>
   );
-}
+};
+
+export const AxisTick = ({data, x, y, stroke, payload}) => (
+  <g transform={`translate(${x},${y})`}>
+    <image
+      y={-65}
+      x={-10}
+      href={Object.values(WEATHER_TYPES).includes(data[payload.value].weather[0].main) ? sunIcon : rainIcon}
+      alt='Cannot load asset'
+    />
+    <text className="chart__label" stroke="#FFFFFF" x={-10} y={-16}>{`${data[payload.value].wind.speed} m/s`}</text>
+    <text className="chart__label" stroke="#FFFFFF" x={-10} y={16}>{data[payload.value].dt_txt.split(' ')[1].slice(0, 5)}</text>
+  </g>
+);

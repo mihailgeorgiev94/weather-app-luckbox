@@ -9,7 +9,6 @@ import {
 // in reality this will be in .env/backend
 const APP_ID = "a54421e62f46d61e1548556da2fd73e8";
 
-// this lib looks a lot like redux-sagas no?
 export const fetchCurrentWeatherLogic = createLogic({
   type: FETCH_CURRENT_WEATHER,
   latest: true,
@@ -44,7 +43,7 @@ export const fetchFutureWeatherLogic = createLogic({
       })
       .then(weatherData => dispatch({ type: FETCH_FUTURE_WEATHER_SUCCESS, payload: weatherData }))
       .catch(err => {
-        console.error(err); // log since could be render err
+        console.error(err);
       })
       .then(() => done());
   }

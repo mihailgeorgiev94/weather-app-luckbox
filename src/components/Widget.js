@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchCurrentWeather, fetchFutureWeather, setWeatherUnits } from '../actions/weatherActions';
-import { WEATHER_UNITS } from '../consts';
+import { WEATHER_UNITS, WEATHER_TYPES } from '../consts';
 
 import './widget.less';
 
@@ -10,11 +10,6 @@ import locationIcon from '../assets/locationIcon.png';
 import sunIcon from '../assets/sunIcon.png';
 import glassIcon from '../assets/glassIcon.png';
 import rainIcon from '../assets/rainIcon.png';
-
-const WEATHER_TYPES = {
-  SUNNY: 'Sunny',
-  CLEAR: 'Clear'
-};
 
 export const Widget = () => {
   const [locationStr, setLocationStr] = useState(null);
