@@ -16,12 +16,15 @@ export const fetchCurrentWeatherLogic = createLogic({
   process({ getState, action }, dispatch, done) {
     const { weatherUnits } = getState().weather
     fetch(`https://api.openweathermap.org/data/2.5/weather?${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
-      .then(resp => resp.json())
+      .then(resp => {
+        if(resp.status === 200) return resp.json()
+
+        throw Error(resp.status)
+      })
       .then(weatherData => dispatch({ type: FETCH_CURRENT_WEATHER_SUCCESS, payload: weatherData }))
       .catch(err => {
-        console.error(err); // log since could be render err
-        // clear state
-        // dispatch({ type: FETCH_CURRENT_WEATHER_FAILED, payload: err, error: true })
+        console.error(err);
+        // log to some service here like sentry and have more complex behavior
       })
       .then(() => done());
   }
@@ -34,12 +37,14 @@ export const fetchFutureWeatherLogic = createLogic({
   process({ getState, action }, dispatch, done) {
     const { weatherUnits } = getState().weather
     fetch(`https://api.openweathermap.org/data/2.5/forecast?${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
-      .then(resp => resp.json())
+      .then(resp => {
+        if(resp.status === 200) return resp.json()
+
+        throw Error(resp.status)
+      })
       .then(weatherData => dispatch({ type: FETCH_FUTURE_WEATHER_SUCCESS, payload: weatherData }))
       .catch(err => {
         console.error(err); // log since could be render err
-        // clear state
-        // dispatch({ type: FETCH_CURRENT_WEATHER_FAILED, payload: err, error: true })
       })
       .then(() => done());
   }
