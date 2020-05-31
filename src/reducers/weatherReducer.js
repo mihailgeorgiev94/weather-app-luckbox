@@ -24,7 +24,8 @@ export const weatherReducer = (state = initialState, action) => {
       wind: action.payload.wind.speed,
       pressure: action.payload.main.pressure,
       clouds: action.payload.clouds.all,
-      humidity: action.payload.main.humidity
+      humidity: action.payload.main.humidity,
+      city: action.payload.name
     };
   case FETCH_FUTURE_WEATHER_SUCCESS:
     return {

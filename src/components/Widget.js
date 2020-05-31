@@ -6,42 +6,71 @@ import { WEATHER_UNITS } from '../consts';
 
 import './widget.less';
 
+import locationIcon from '../assets/locationIcon.png';
 import sunIcon from '../assets/sunIcon.png';
 import glassIcon from '../assets/glassIcon.png';
 import rainIcon from '../assets/rainIcon.png';
 
-// You guys probably meant clear instead of cloudy here
 const WEATHER_TYPES = {
   SUNNY: 'Sunny',
   CLEAR: 'Clear'
 };
 
 export const Widget = () => {
-  const [city, setCity] = useState(null);
+  const [locationStr, setLocationStr] = useState(null);
+  const [currentCity, setCurrentCity] = useState(null);
   const { weatherUnits } = useSelector(state => state.weather);
+  const { city } = useSelector(state => state.weather);
   const { temp } = useSelector(state => state.weather);
   const { weatherType } = useSelector(state => state.weather);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCurrentWeather(city));
-    dispatch(fetchFutureWeather(city));
-  }, [city, dispatch, weatherUnits]);
+    dispatch(fetchCurrentWeather(locationStr));
+    dispatch(fetchFutureWeather(locationStr));
+  }, [locationStr, dispatch]);
 
-  const handleWeatherUnits = useCallback(() => {
+  useEffect(() => {
+    setCurrentCity(city);
+  }, [city])
+
+  const handleWeatherUnitsClick = useCallback(() => {
     weatherUnits === WEATHER_UNITS.METRIC
       ? dispatch(setWeatherUnits(WEATHER_UNITS.IMPERIAL))
       : dispatch(setWeatherUnits(WEATHER_UNITS.METRIC));
   }, [dispatch, weatherUnits]);
 
-  // TODO: Add current location
+
+  const handleCurrentLocationClick = useCallback((pos) => {
+    setLocationStr(`lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
+  }, []);
+
+  // TODO: onclick glass focus input
   return (
     <div className="widget">
 
       <div className="city">
-        <input className="city__input" type="text" onChange={(e) => setCity(e.target.value)}/>
-        <img className="city__glass" src={glassIcon} alt='Cannot load asset'/>
+        <img
+          onClick={() => navigator.geolocation.getCurrentPosition(handleCurrentLocationClick)}
+          className="city__location"
+          src={locationIcon}
+          alt='Cannot load asset'
+        />
+        <input
+          className="city__input"
+          type="text"
+          value={currentCity || ''}
+          onChange={(e) => {
+            setCurrentCity(e.target.value)
+            setLocationStr(`q=${e.target.value}`);
+          }}
+        />
+        <img
+          className="city__glass"
+          src={glassIcon}
+          alt='Cannot load asset'
+        />
       </div>
 
       <div className="temp">
@@ -53,7 +82,7 @@ export const Widget = () => {
             alt='Cannot load asset'
           />
         </div>
-        <span className="temp__units" onClick={handleWeatherUnits}>
+        <span className="temp__units" onClick={handleWeatherUnitsClick}>
           {weatherUnits === WEATHER_UNITS.METRIC ? 'C' : 'F'}
         </span>
       </div>

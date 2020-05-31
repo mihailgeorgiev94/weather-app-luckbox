@@ -15,7 +15,7 @@ export const fetchCurrentWeatherLogic = createLogic({
   latest: true,
   process({ getState, action }, dispatch, done) {
     const { weatherUnits } = getState().weather
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
       .then(resp => resp.json())
       .then(weatherData => dispatch({ type: FETCH_CURRENT_WEATHER_SUCCESS, payload: weatherData }))
       .catch(err => {
@@ -33,7 +33,7 @@ export const fetchFutureWeatherLogic = createLogic({
   latest: true,
   process({ getState, action }, dispatch, done) {
     const { weatherUnits } = getState().weather
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?${action.payload}&units=${weatherUnits}&appid=${APP_ID}`)
       .then(resp => resp.json())
       .then(weatherData => dispatch({ type: FETCH_FUTURE_WEATHER_SUCCESS, payload: weatherData }))
       .catch(err => {
