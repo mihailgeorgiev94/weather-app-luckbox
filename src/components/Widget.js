@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchCurrentWeather, fetchFutureWeather, setWeatherUnits } from '../actions/weatherActions';
@@ -24,6 +24,8 @@ export const Widget = () => {
   const { temp } = useSelector(state => state.weather);
   const { weatherType } = useSelector(state => state.weather);
 
+  const inputRef = useRef(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -46,7 +48,6 @@ export const Widget = () => {
     setLocationStr(`lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`);
   }, []);
 
-  // TODO: onclick glass focus input
   return (
     <div className="widget">
 
@@ -58,6 +59,7 @@ export const Widget = () => {
           alt='Cannot load asset'
         />
         <input
+          ref={inputRef}
           className="city__input"
           type="text"
           value={currentCity || ''}
@@ -67,6 +69,7 @@ export const Widget = () => {
           }}
         />
         <img
+          onClick={() => inputRef.current.focus()}
           className="city__glass"
           src={glassIcon}
           alt='Cannot load asset'
