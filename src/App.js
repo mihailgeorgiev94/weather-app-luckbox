@@ -1,19 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 
-import { store } from './store'
+import { store } from './store';
 
-// TODO: put this in index.js
-import { Widget } from './components/Widget'
-import { WeatherDetails } from './components/WeatherDetails'
-import { FutureWeather } from './components/FutureWeather'
+import { Widget, WeatherDetails, FutureWeather } from './components';
+
+import './app.less';
 
 export const App = () => {
   return (
     <Provider store={store}>
-      <Widget/>
-      <WeatherDetails/>
-      <FutureWeather/>
+      <div className="app">
+        <Widget/>
+        <WeatherDetails/>
+        <FutureWeather/>
+      </div>
     </Provider>
   );
-}
+};
