@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentWeather, fetchFutureWeather, setWeatherUnits } from '../actions/weatherActions'
 import { WEATHER_UNITS } from '../consts';
 
+import './widget.less';
+
 import sunIcon from '../assets/sunIcon.png';
 import rainIcon from '../assets/rainIcon.png';
 
