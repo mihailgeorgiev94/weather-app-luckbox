@@ -73,7 +73,7 @@ export const Widget = () => {
 
       <div className="temp">
         <div className="temp__weather">
-          <span className="temp__val">{`${temp}°`}</span>
+          <span className="temp__val">{`${temp || ''}°`}</span>
           <img
             className="temp__icon"
             src={Object.values(WEATHER_TYPES).includes(weatherType) ? sunIcon : rainIcon}
