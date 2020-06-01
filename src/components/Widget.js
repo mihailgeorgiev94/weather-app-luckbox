@@ -11,7 +11,7 @@ import sunIcon from '../assets/sunIcon.png';
 import glassIcon from '../assets/glassIcon.png';
 import rainIcon from '../assets/rainIcon.png';
 
-export const Widget = () => {
+export const Widget = ({ detailsRef }) => {
   const [locationStr, setLocationStr] = useState(null);
   const [currentCity, setCurrentCity] = useState(null);
   const { weatherUnits } = useSelector(state => state.weather);
@@ -87,7 +87,12 @@ export const Widget = () => {
 
       <span className="weather-type">{weatherType}</span>
 
-      <span className="details">More details ></span>
+      <span
+        onClick={() => window.scrollTo({left: 0, top: detailsRef.current.offsetTop, behavior: 'smooth'})}
+        className="details"
+      >
+    More details >
+      </span>
 
     </div>
   );

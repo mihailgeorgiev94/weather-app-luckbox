@@ -16,6 +16,7 @@ const MAIN_PEACH = "#EEA594";
 export const Weather = () => {
   const weatherRef = useRef(null);
   const widgetBackgroundRef = useRef(null);
+  const detailsRef = useRef(null);
   const { city, weatherType } = useSelector(state => state.weather);
 
   const isSunny = Object.values(WEATHER_TYPES).includes(weatherType)
@@ -46,13 +47,13 @@ export const Weather = () => {
       />
       <div ref={widgetBackgroundRef} className="widget-background"/>
       <div className="widget-wrapper">
-        <Widget/>
+        <Widget detailsRef={detailsRef}/>
       </div>
       {city ? (
-        <div className="content">
-        <WeatherDetails/>
-        <FutureWeather/>
-      </div>
+        <div ref={detailsRef} className="content">
+          <WeatherDetails/>
+          <FutureWeather/>
+        </div>
       ) : null}
     </div>
-)};
+  )};
